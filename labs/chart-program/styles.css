@@ -4,4 +4,5 @@ body {
 
 #myCanvas {
     border: 1px solid #111111;
+    align-items: center;
 }
