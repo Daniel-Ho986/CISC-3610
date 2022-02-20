@@ -1,9 +1,20 @@
 body {
-    margin: auto;
+    text-align: center;
 }
 
 #myCanvas {
     border: 1px solid #111111;
     background-color: #87ceeb;
-   }
+    align-items: center;
+}
+
+#myButton {
+    margin: 5px;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+#myButton a {
+    text-decoration: none;
+}
 
