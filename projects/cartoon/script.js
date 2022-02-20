@@ -25,7 +25,7 @@ function draw() {
         cloudPosition += 400;
     }
 
-    // Call drawTree() to draw 2 tree
+    // Call drawTree() to draw 2 trees
     for (let i = 0; i < 2; i++) {
         drawTree(ctx, treePosition);
         treePosition += 600;
