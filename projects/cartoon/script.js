@@ -40,6 +40,7 @@ function draw() {
         grassPosition += 20;
     }          
 
+    // Canvas Text
     ctx.fillStyle = "#000000"
     ctx.font = "25px Arial";
     ctx.fillText("Welcome to my house!", 10, 30);
