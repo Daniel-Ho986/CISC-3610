@@ -11,14 +11,14 @@ Scene.start = function () {
     Scene.canvas = document.getElementById("myCanvas");
     Scene.canvasContext = Scene.canvas.getContext("2d");
 	
-	// Seup the parrot to be displayed.
-    Scene.sprite = parrot;
+	// Seup the numbers to be displayed.
+    Scene.sprite = numbers;
 	
 	// Attach the image to be used for the sprite.
 	Scene.sprite.img = new Image();
     Scene.sprite.img.src = Scene.sprite.src;
 	
-	// Wait till the parrot image is loaded before starting the animation.
+	// Wait till the numbers image is loaded before starting the animation.
 	Scene.sprite.img.onload = function() {		
 		Scene.sprite.offset=-Scene.sprite.frames[Scene.sprite.frame].frame.w;
     	Scene.mainLoop();
@@ -39,7 +39,7 @@ Scene.mainLoop = function() {
     Scene.draw();
 	
 	// Animate at 24 frames a second.
-    window.setTimeout(Scene.mainLoop, 1000 /24);
+    window.setTimeout(Scene.mainLoop, 1000 / 6);
 };
 
 Scene.update = function () {

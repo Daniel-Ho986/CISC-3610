@@ -1,10 +1,11 @@
 numbers = {
-    src: "spritesheet.png",
-    img: undefined,
-    frame: 0,
-    offset: 0,
-	"frames": {
-		"tile000.png": {
+	src: "spritesheet.png",
+	img: undefined,
+	frame: 0,
+	offset: 0,	
+	"frames": [
+		{
+			"filename": "tile000.png",
 			"frame": {
 				"x": 1,
 				"y": 1,
@@ -24,7 +25,8 @@ numbers = {
 				"h": 148
 			}
 		},
-		"tile001.png": {
+		{
+			"filename": "tile001.png",
 			"frame": {
 				"x": 121,
 				"y": 1,
@@ -44,7 +46,8 @@ numbers = {
 				"h": 148
 			}
 		},
-		"tile002.png": {
+		{
+			"filename": "tile002.png",
 			"frame": {
 				"x": 241,
 				"y": 1,
@@ -64,7 +67,8 @@ numbers = {
 				"h": 148
 			}
 		},
-		"tile003.png": {
+		{
+			"filename": "tile003.png",
 			"frame": {
 				"x": 1,
 				"y": 151,
@@ -84,7 +88,8 @@ numbers = {
 				"h": 148
 			}
 		},
-		"tile004.png": {
+		{
+			"filename": "tile004.png",
 			"frame": {
 				"x": 121,
 				"y": 151,
@@ -104,7 +109,8 @@ numbers = {
 				"h": 148
 			}
 		},
-		"tile005.png": {
+		{
+			"filename": "tile005.png",
 			"frame": {
 				"x": 241,
 				"y": 151,
@@ -124,7 +130,8 @@ numbers = {
 				"h": 147
 			}
 		},
-		"tile006.png": {
+		{
+			"filename": "tile006.png",
 			"frame": {
 				"x": 361,
 				"y": 1,
@@ -144,7 +151,8 @@ numbers = {
 				"h": 147
 			}
 		},
-		"tile007.png": {
+		{
+			"filename": "tile007.png",
 			"frame": {
 				"x": 361,
 				"y": 150,
@@ -164,7 +172,8 @@ numbers = {
 				"h": 147
 			}
 		},
-		"tile008.png": {
+		{
+			"filename": "tile008.png",
 			"frame": {
 				"x": 361,
 				"y": 299,
@@ -184,7 +193,8 @@ numbers = {
 				"h": 147
 			}
 		},
-		"tile009.png": {
+		{
+			"filename": "tile009.png",
 			"frame": {
 				"x": 481,
 				"y": 1,
@@ -204,7 +214,7 @@ numbers = {
 				"h": 147
 			}
 		}
-	},
+	],
 	"meta": {
 		"app": "http://www.codeandweb.com/texturepacker",
 		"version": "1.0",
