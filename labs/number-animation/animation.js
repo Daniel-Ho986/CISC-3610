@@ -43,7 +43,7 @@ Scene.start = function () {
 document.addEventListener( 'DOMContentLoaded', Scene.start);
 
 Scene.clearCanvas = function () {
-    Scene.canvasContext.fillStyle = "black";
+    Scene.canvasContext.fillStyle = "#ffffff";
     Scene.canvasContext.fillRect(0, 0, Scene.canvas.width, Scene.canvas.height);
 };
 
