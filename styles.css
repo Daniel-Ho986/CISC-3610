@@ -1,3 +1,9 @@
+body {
+    align-items: center;
+}
+table {
+    margin: 20px;
+}
 table, tr, th {
     border: 1px double black
 }
