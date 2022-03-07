@@ -1,10 +1,10 @@
 body {
-    align-items: center;
-    margin: auto;
+    text-align: center;
 }
 table {
-    margin: 20px;
+    margin: auto;
 }
 table, tr, th {
-    border: 1px double black
+    border: 1px double black;
+    padding: 5px 10px;
 }
