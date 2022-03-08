@@ -57,6 +57,8 @@ Scene.mainLoop = function() {
 	// Animate at 1 frames a second.
 	if (counter < 11) {
     	window.setTimeout(Scene.mainLoop, 500);
+	} else {
+		counter = 0;
 	}
 };
 

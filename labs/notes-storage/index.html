@@ -5,12 +5,43 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <title>Notes Storage</title>
     
   </head>
   <body>
     <h1>Notes Storage</h1>
-    
+    <form class="form-horizontal">
+      <fieldset>
+      
+      <!-- Form Name -->
+      <!-- <legend>Notes Storage</legend> -->
+      
+      <!-- Text input-->
+      <div class="form-group">
+        <label class="col-md-4 control-label" for="textinput">Title</label>  
+        <div class="col-md-4">
+          <input id="textinput" name="textinput" type="text" placeholder="placeholder" class="form-control input-md" maxlength="40">
+        </div>
+      </div>
+      
+      <!-- Textarea -->
+      <div class="form-group">
+        <label class="col-md-4 control-label" for="textarea">Text Area</label>
+        <div class="col-md-4">                     
+          <textarea class="form-control" id="textarea" name="textarea" rows="10" cols="80">default text</textarea>
+        </div>
+      </div>
+      
+      <!-- Button -->
+      <div class="form-group">
+        <div class="col-md-4">
+          <button id="singlebutton" name="singlebutton" class="btn btn-success">SUBMIT</button>
+        </div>
+      </div>
+      
+      </fieldset>
+      </form>
 	  <script src="script.js"></script>
   </body>
 </html>
