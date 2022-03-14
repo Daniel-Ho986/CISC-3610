@@ -14,34 +14,32 @@
     <form class="form-horizontal">
       <fieldset>
       
-      <!-- Form Name -->
-      <!-- <legend>Notes Storage</legend> -->
-      
-      <!-- Text input-->
-      <div class="form-group">
-        <label class="col-md-4 control-label" for="textinput">Title</label>  
-        <div class="col-md-4">
-          <input id="textinput" name="textinput" type="text" placeholder="placeholder" class="form-control input-md" maxlength="40">
+        <!-- Form Name -->
+        <!-- <legend>Notes Storage</legend> -->
+        
+        <!-- Text input-->
+        <div class="form-group">
+          <label class="col-md-4 control-label" for="textinput">Title</label>  
+          <div class="col-md-4">
+            <input id="textinput" name="textinput" type="text" placeholder="January 1, 2022: First Day of Work" class="form-control input-md" maxlength="40">
+          </div>
         </div>
-      </div>
-      
-      <!-- Textarea -->
-      <div class="form-group">
-        <label class="col-md-4 control-label" for="textarea">Text Area</label>
-        <div class="col-md-4">                     
-          <textarea class="form-control" id="textarea" name="textarea" rows="10" cols="80">default text</textarea>
+        
+        <!-- Textarea -->
+        <div class="form-group">
+          <label class="col-md-4 control-label" for="textarea">Notes</label>
+          <div class="col-md-4">                     
+            <textarea class="form-control" id="textarea" name="textarea" rows="10" cols="80" placeholder="Familiarize with the work environment"></textarea>
+          </div>
         </div>
-      </div>
-      
-      <!-- Button -->
-      <div class="form-group">
-        <div class="col-md-4">
-          <button id="singlebutton" name="singlebutton" class="btn btn-success">SUBMIT</button>
-        </div>
-      </div>
-      
+        
+        <!-- Button -->
+        <button id="singlebutton" name="singlebutton" class="btn btn-success">SUBMIT</button>
+        <button id="singlebutton" name="singlebutton" class="btn btn-danger">CLEAR</button>
+
+
       </fieldset>
-      </form>
+    </form>
 	  <script src="script.js"></script>
   </body>
 </html>

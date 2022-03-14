@@ -3,8 +3,11 @@
 var Scene = {
     canvas: undefined,
     canvasContext: undefined,
-    sprite: undefined
+    sprite: undefined,
 };
+
+var speechBox = new Image();
+speechBox.src = "speech-bubble.png";
 
 Scene.start = function() {
     // Get the canvas and it's context.
@@ -74,5 +77,5 @@ Scene.draw = function () {
     // display speech bubble if certain time reach with while loop
     // draw Image bubble
     // continue to draw the bubble until the convo time ends
-    // Scene.canvasContext.drawImage();
+    Scene.canvasContext.drawImage(speechBox, 0, 0, 16, 18, 50, 50, 16, 18);
 };
