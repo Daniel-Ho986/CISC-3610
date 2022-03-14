@@ -3,7 +3,7 @@
 var Scene = {
     canvas: undefined,
     canvasContext: undefined,
-    sprite: undefined,
+    sprite: undefined
 };
 
 Scene.start = function() {
@@ -37,8 +37,8 @@ Scene.mainLoop = function() {
     Scene.update();
     Scene.draw();
 
-    // Animate at 24 frames a second
-    window.setTimeout(Scene.mainLoop, 1000 / 18);
+    // Animate at 16 frames a second
+    window.setTimeout(Scene.mainLoop, 1000 / 16);
 };
 
 Scene.update = function () {
@@ -74,5 +74,5 @@ Scene.draw = function () {
     // display speech bubble if certain time reach with while loop
     // draw Image bubble
     // continue to draw the bubble until the convo time ends
-    Scene.canvasContext.drawImage();
+    // Scene.canvasContext.drawImage();
 };
