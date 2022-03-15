@@ -6,12 +6,12 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-    <title>Notes Storage</title>
+    <title>Notebook</title>
     
   </head>
   <body>
-    <h1>Notes Storage</h1>
-    <form class="form-horizontal">
+    <h1>Notebook</h1>
+    <form class="form-horizontal" action="noted.php">
       <fieldset>
       
         <!-- Form Name -->
@@ -21,7 +21,7 @@
         <div class="form-group">
           <label class="col-md-4 control-label" for="textinput">Title</label>  
           <div class="col-md-4">
-            <input id="textinput" name="textinput" type="text" placeholder="January 1, 2022: First Day of Work" class="form-control input-md" maxlength="40">
+            <input id="textinput" name="textinput" type="text" placeholder="January 1, 2022: First Day of Work" class="form-control input-md" maxlength="40" oninput="saveNotes()">
           </div>
         </div>
         
@@ -29,14 +29,13 @@
         <div class="form-group">
           <label class="col-md-4 control-label" for="textarea">Notes</label>
           <div class="col-md-4">                     
-            <textarea class="form-control" id="textarea" name="textarea" rows="10" cols="80" placeholder="Familiarize with the work environment"></textarea>
+            <textarea class="form-control" id="textarea" name="textarea" rows="10" cols="80" placeholder="Familiarize with the work environment" oninput="saveNotes()"></textarea>
           </div>
         </div>
         
         <!-- Button -->
         <button id="singlebutton" name="singlebutton" class="btn btn-success">SUBMIT</button>
-        <button id="singlebutton" name="singlebutton" class="btn btn-danger">CLEAR</button>
-
+        <button id="singlebutton" name="singlebutton" class="btn btn-danger" onclick="deleteNotes()">CLEAR</button>
 
       </fieldset>
     </form>

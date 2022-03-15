@@ -22,7 +22,7 @@ Scene.start = function() {
 
     // Wait till the bird image is loaded before starting the animation
     Scene.sprite.img.onload = function() {
-        Scene.sprite.offset = -Scene.sprite.frames[Scene.sprite.frame].frame.w;
+        Scene.sprite.offset = Scene.canvas.width;
         Scene.mainLoop();
     }
 };
@@ -49,12 +49,14 @@ Scene.update = function () {
   	Scene.canvas.width = window.innerWidth;
 	
 	// Set the location of the next frame. 
-  	Scene.sprite.offset += 24;
-	if(Scene.sprite.offset>Scene.canvas.width)
- 		Scene.sprite.offset=-Scene.sprite.frames[Scene.sprite.frame].frame.w;
+  	Scene.sprite.offset -= 24;
+	if(Scene.sprite.offset < -Scene.sprite.frames[Scene.sprite.frame].frame.w)
+ 		Scene.sprite.offset=Scene.canvas.width;
 };
 
 Scene.draw = function () {
+    Scene.canvasContext.drawImage(speechBox, 0, 0, 16, 18, 50, 50, 16, 18);
+    
 	Scene.canvasContext.drawImage(
         Scene.sprite.img, // image
         Scene.sprite.frames[Scene.sprite.frame].frame.x, // x coordinate to start clipping
@@ -77,5 +79,6 @@ Scene.draw = function () {
     // display speech bubble if certain time reach with while loop
     // draw Image bubble
     // continue to draw the bubble until the convo time ends
-    Scene.canvasContext.drawImage(speechBox, 0, 0, 16, 18, 50, 50, 16, 18);
+    // Scene.canvasContext.drawImage(speechBox, 0, 0, 16, 18, 50, 50, 16, 18);
+   
 };
