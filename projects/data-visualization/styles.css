@@ -1,3 +1,16 @@
+body {
+    text-align: center;
+    background-color:antiquewhite;
+}
+
+#container {
+    margin: auto;
+    display: grid;
+    grid-template-columns: auto auto;
+    width: 600px;
+}
+
 canvas {
     border: 1px solid #000;
+    margin: 0 10px;
 }
