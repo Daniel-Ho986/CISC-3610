@@ -1,16 +1,24 @@
 body {
     text-align: center;
-    background-color:antiquewhite;
+    background-color:rgba(230, 230, 250, 0.5);
 }
 
 #container {
-    margin: auto;
     display: grid;
     grid-template-columns: auto auto;
+    grid-gap: 2rem;
     width: 600px;
 }
 
 canvas {
     border: 1px solid #000;
     margin: 0 10px;
+}
+
+@media screen and (max-width: 700px) {
+    #container {
+        display: grid;
+        grid-template-columns: auto;
+        grid-gap: 2rem;
+    }
 }
