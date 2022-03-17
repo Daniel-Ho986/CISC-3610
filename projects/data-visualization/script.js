@@ -74,7 +74,7 @@ let hBarChart = new Chart(HBAR, {
     ],
     datasets: [{
       label: '2010 Num of SAT Test Takers',
-      data: [86, 1047, 686, 627, 581, 385, 641, 349, 0, 725, 804],
+      data: [86, 1047, 686, 627, 581, 385, 641, 349, 50, 725, 804],
       backgroundColor: [
         'rgb(255, 204, 204)',
         'rgb(255, 229, 204)',

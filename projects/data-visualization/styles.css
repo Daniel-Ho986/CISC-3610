@@ -17,8 +17,6 @@ canvas {
 
 @media screen and (max-width: 700px) {
     #container {
-        display: grid;
         grid-template-columns: auto;
-        grid-gap: 2rem;
     }
 }
