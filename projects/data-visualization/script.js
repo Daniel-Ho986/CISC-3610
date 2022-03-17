@@ -37,7 +37,6 @@ let donutChart = new Chart(DONUT, {
     }]
   },
   options: {
-    responsive: true,
     plugins: {
       title: {
         display: true,
