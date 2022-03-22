@@ -6,8 +6,8 @@ var Scene = {
     sprite: undefined,
 };
 
-var speechBox = new Image();
-speechBox.src = "speech-bubble.png";
+var counterStart = 0;
+var counterStop = 0;
 
 Scene.start = function() {
     // Get the canvas and it's context.
@@ -54,9 +54,7 @@ Scene.update = function () {
  		Scene.sprite.offset=Scene.canvas.width;
 };
 
-Scene.draw = function () {
-    Scene.canvasContext.drawImage(speechBox, 0, 0, 16, 18, 50, 50, 16, 18);
-    
+Scene.draw = function () {    
 	Scene.canvasContext.drawImage(
         Scene.sprite.img, // image
         Scene.sprite.frames[Scene.sprite.frame].frame.x, // x coordinate to start clipping
@@ -76,9 +74,16 @@ Scene.draw = function () {
 	if(Scene.sprite.frame==Scene.sprite.frames.length)
 		Scene.sprite.frame=0;
 
-    // display speech bubble if certain time reach with while loop
-    // draw Image bubble
-    // continue to draw the bubble until the convo time ends
-    // Scene.canvasContext.drawImage(speechBox, 0, 0, 16, 18, 50, 50, 16, 18);
-   
+    counterStart++;
+
+    while (counterStart > 300 || counterStop < 300) {
+        counterStart = 0;
+        Scene.canvasContext.clearRect(0, 200, Scene.canvas.width, Scene.canvas.height);
+        Scene.canvasContext.font = "35px Arial";
+        Scene.canvasContext.fillText("It's so hot!", 305, 240);    
+        Scene.canvasContext.fillText("Hi Birdie!", 735, 245);
+        counterStop++;
+    }
+    counterStop = 0;
+    
 };
