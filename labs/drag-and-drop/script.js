@@ -1,29 +1,35 @@
-// Create our only scene caled mainScene, in the script.js file
-class mainScene {
-    // The three methods are key to how Phaser works
-    // preload() → create() → update() → update() → update() → etc.
+// This object contains all the Phaser configurations to load our game
+const CONFIG = {
+    type: Phaser.AUTO,
+    parent: 'game',
+    width: 800,
+    height: 640,
+    scale: {
+        mode: Phaser.Scale.RESIZE,
+        autoCenter: Phaser.Scale.CENTER_BOTH
+    },
 
-    preload() {
-        // This method is called once at the beginning
-        // It will load all the assests, like sprites and sounds
-    }
-
-    create() {
-        // This method is called once, just after preload()
-        // It will initialize our scene, like the positions of the sprites
-    }
-
-    update() {
-        // This method is called 60 times per second after create()
-        // It will handle all the game's logic, like movements
+    scene: {
+        preload,
+        create,
+        update,
+    },
+    
+    physics: {
+        default: 'arcade',
+        arcade: {
+            gravity: false
+        },
     }
 }
 
-new Phaser.Game({
-    width: 700, // Width of the game in pixels
-    height: 400, // Height of the game in pixels
-    backgroundColor: '#3498db', // Background color
-    scene: mainScene, // The name of the scene we created
-    physics: {default: 'arcade'}, // The physics engine to use
-    parent: 'game' // Create the game inside the <div id="game">
-});
+// Create the game instance
+const GAME = new Phaser.Game(CONFIG);
+
+function preload() {
+
+}
+
+function create() {
+    
+} 
