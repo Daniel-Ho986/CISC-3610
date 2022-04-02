@@ -29,6 +29,7 @@ const GAME = new Phaser.Game(CONFIG);
 
 function preload() {
     this.load.image('background', 'assets/images/background.jpg');
+    this.load.image('bulbasaur', 'assets/images/bulbasaur.png');
 
     for (let i = 0; i < sprites.length; i++) {
         this.load.image(sprites[i], `assets/images/${sprites[i]}.png`);
