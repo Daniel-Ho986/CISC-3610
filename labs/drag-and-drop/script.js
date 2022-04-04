@@ -31,7 +31,7 @@ function preload() {
     this.load.image('background', 'assets/images/background.jpg');
 
     for (let i = 0; i < sprites.length; i++) {
-        this.load.image(sprites[i], `assets/images/${sprites[i]}.png`);
+        this.load.image(sprites[i], `assets/images/${sprites[i].charAt(0).toUpperCase() + sprites[i].slice(1)}.png`);
     }
 }
 
