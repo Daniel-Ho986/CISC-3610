@@ -95,6 +95,8 @@ function create() {
     camping.setInteractive();
     this.input.setDraggable(camping);
 
+    this.add.text(0, 0, 'Daniel Ho', { font: "32px Press Start 2P"});
+
     this.input.on('drag', function (pointer, gameObject, dragX, dragY) {
         gameObject.x = dragX;
         gameObject.y = dragY;
