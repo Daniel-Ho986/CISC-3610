@@ -3,15 +3,21 @@ html, body {
     padding: 0;
     width: 100%;
     height: 100%;
+    text-align: center;
 }
 
 #game {
     margin: 10px auto;
     padding: 0;
-    width: 1000px;
-    height: 640px;
+    width: 800px;
+    height: 600px;
 }
 
 h1 {
     text-align: center;
+}
+
+a {
+    color: magenta;
+    text-decoration: none;
 }
