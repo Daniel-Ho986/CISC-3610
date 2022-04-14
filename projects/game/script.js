@@ -212,6 +212,7 @@ var GameScene = new Phaser.Class({
 
     create: function ()
     {
+        // Set up for platforms
         const map = this.make.tilemap({ key: 'map'});
 
         const tileset = map.addTilesetImage('simple_platformer', 'tiles');
@@ -221,11 +222,9 @@ var GameScene = new Phaser.Class({
         platforms.setScale(0.465, 0.5);
         platforms.setCollisionByExclusion(-1, true);
 
-        // this.player = this.physics.add.sprite(config.width / 2 - 50, config.height / 2, 'player');
+        // Set up for player
+        this.player = this.physics.add.sprite(config.width / 2 - 50, 500, 'player');
 
-        this.player = this.physics.add.sprite(0, 530, 'player');
-        
-        
         this.player.setScale(0.055);
         this.player.setBounce(0.1);
         this.player.setCollideWorldBounds(true);
