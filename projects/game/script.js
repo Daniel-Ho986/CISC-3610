@@ -15,8 +15,8 @@
 
 // Game Variables
 let scoreText, livesText;
-let player, fruits, pelt, cursors;
-let groundLeft, groundMid, groundRight;
+let player, fruits, pelts, cursors;
+
 
 let score = 0, maxScore = 0, lives = 3;
 
@@ -196,18 +196,20 @@ var GameScene = new Phaser.Class({
 
     preload: function ()
     {
+        this.load.image('tiles', 'assets/tilemaps/tiles_spritesheet.png');
+        this.load.tilemapTiledJSON('map', 'assets/tilemaps/level1.json');
+
         this.load.spritesheet('player', 'assets/images/Player/player-spritesheet.png',{
             frameWidth: 566,
             frameHeight: 556,
             frame: 8,
         });
 
-        this.load.image('tiles', 'assets/tilemaps/tiles_spritesheet.png');
-        this.load.tilemapTiledJSON('map', 'assets/tilemaps/level1.json');
-
-        // this.load.image('ground_left', 'assets/images/Platforms/grassCliffLeft.png');
-        // this.load.image('ground_mid', 'assets/images/Platforms/grassMid.png');
-        // this.load.image('ground_right', 'assets/images/Platforms/grassCliffRight.png');
+        this.load.image('banana', 'assets/images/Fruits/banana.png');
+        this.load.image('orange', 'assets/images/Fruits/orange.png');
+        this.load.image('pear', 'assets/images/Fruits/pear.png');
+        this.load.image('strawberry', 'assets/images/Fruits/strawberry.png');
+        this.load.image('watermelon', 'assets/images/Fruits/watermelon.png');
     },
 
     create: function ()
@@ -228,6 +230,7 @@ var GameScene = new Phaser.Class({
         this.player.setScale(0.055);
         this.player.setBounce(0.1);
         this.player.setCollideWorldBounds(true);
+        this.player.body.gravity.y = 350;
  
         this.anims.create({
             key: 'player_walk',
@@ -236,9 +239,44 @@ var GameScene = new Phaser.Class({
             repeat: -1,
         });
 
+        let items = ['banana', 'strawberry', 'watermelon', 'orange', 'pear']
+
+        // Creating a group of one specific fruit per game
+        fruits = this.physics.add.group({
+            key: items[Phaser.Math.Between(0, 4)],
+            setScale: {x: 0.1, y: 0.1},
+            setXY: {x: Phaser.Math.Between(20, game.config.width - 20), y: Phaser.Math.Between(50, game.config.height - 50)},
+        });
+
+        // const x = player.x < 400
+        //     ? Phaser.Math.Between(400, 800)
+        //     : Phaser.Math.Between(0, 400);
+
+        // pelts = this.physics.add.group();
+
+        // const enemy = pelts.create(x, 1, "enemy");
+
+        // enemy.setBounce(1);
+
+
+
+        // Checks to see if the player overlaps with any of the stars, if he does call the collectStar function
+        this.physics.add.overlap(this.player, fruits, this.collectFruit, null, this);
+
         // Collide the player with the platforms
         this.physics.add.collider(this.player, platforms); 
 
+        // The score
+        scoreText = this.add.text(16, 16, `Score: ${score}`, {
+            fontSize: "18px",
+            fill: "#000000"
+        });
+
+        // The lives
+        livesText = this.add.text(16, 48, `Lives: ${lives}`, {
+            fontSize: "18px",
+            fill: "#000000"
+        });
 
         this.cursors = this.input.keyboard.createCursorKeys();
         this.newGame = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.N);
@@ -280,9 +318,31 @@ var GameScene = new Phaser.Class({
         
         // Player Jump 
         if (this.cursors.up.isDown && this.player.body.onFloor()) {
-            this.player.setVelocityY(-330);
+            this.player.setVelocityY(-380);
+        }  
+
+    },
+    
+    collectFruit: function (player, fruit) {
+        fruit.disableBody(true, true);
+    
+        // Add and update the score
+        score += 10;
+        scoreText.setText(`Score: ${score}`);
+    
+        maxScore = Math.max(maxScore, score);
+    
+        // this.sound.play("coin");
+    
+        if (fruits.countActive(true) === 0) {
+            fruits.children.iterate(function (child) {
+                child.enableBody(true, Phaser.Math.Between(20, game.config.width - 20), Phaser.Math.Between(50, game.config.height - 50), true, true);
+              });
         }
-    }
+
+    },
+
+    
 
 });
 
@@ -303,7 +363,7 @@ const config = {
     physics: {
         default: 'arcade',
         arcade: {
-            gravity: { y : 350 },
+            // gravity: { y : 350 },
             debug: false
         },
     }
