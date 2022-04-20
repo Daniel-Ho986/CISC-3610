@@ -15,10 +15,11 @@
 
 // Game Variables
 let scoreText, livesText;
-let player, fruits, pelts, cursors;
-
+let player, fruits, pelt, cursors;
 
 let score = 0, maxScore = 0, lives = 3;
+
+let timer = 0;
 
 /**
  * Intro Scene
@@ -205,6 +206,12 @@ var GameScene = new Phaser.Class({
             frame: 8,
         });
 
+        this.load.spritesheet('enemy', 'assets/images/Enemy/enemy-spritesheet.png', {
+            frameWidth: 600,
+            frameHeight: 500,
+            frame: 2,
+        });
+
         this.load.image('banana', 'assets/images/Fruits/banana.png');
         this.load.image('orange', 'assets/images/Fruits/orange.png');
         this.load.image('pear', 'assets/images/Fruits/pear.png');
@@ -239,7 +246,33 @@ var GameScene = new Phaser.Class({
             repeat: -1,
         });
 
-        let items = ['banana', 'strawberry', 'watermelon', 'orange', 'pear']
+        // Set up for enemy
+        const x = this.player.x < 400
+            ? Phaser.Math.Between(400, 800)
+            : Phaser.Math.Between(0, 400);
+
+        this.pelt = this.physics.add.sprite(x, Phaser.Math.Between(50, game.config.height - 50), 'enemy');
+
+        this.pelt.setScale(0.06);
+        this.pelt.setCollideWorldBounds(true);
+        this.pelt.setBounce(1);
+        this.pelt.setVelocity(Phaser.Math.Between(-200, 200), 20);
+        this.pelt.allowGravity = false;
+        // this.pelt.flipX = true;
+
+        this.anims.create({
+            key: 'enemy_fly',
+            frames: this.anims.generateFrameNumbers('enemy', {start: 0, end: 1}),
+            frameRate: 7,
+            repeat: -1,
+        });
+
+        this.pelt.anims.play('enemy_fly', true);
+
+        
+       
+        
+        let items = ['banana', 'strawberry', 'watermelon', 'orange', 'pear'];
 
         // Creating a group of one specific fruit per game
         fruits = this.physics.add.group({
@@ -248,23 +281,15 @@ var GameScene = new Phaser.Class({
             setXY: {x: Phaser.Math.Between(20, game.config.width - 20), y: Phaser.Math.Between(50, game.config.height - 50)},
         });
 
-        // const x = player.x < 400
-        //     ? Phaser.Math.Between(400, 800)
-        //     : Phaser.Math.Between(0, 400);
-
-        // pelts = this.physics.add.group();
-
-        // const enemy = pelts.create(x, 1, "enemy");
-
-        // enemy.setBounce(1);
-
-
-
         // Checks to see if the player overlaps with any of the stars, if he does call the collectStar function
         this.physics.add.overlap(this.player, fruits, this.collectFruit, null, this);
 
         // Collide the player with the platforms
-        this.physics.add.collider(this.player, platforms); 
+        this.physics.add.collider(this.player, platforms);
+        this.physics.add.collider(this.pelt, platforms); 
+        this.physics.add.collider(fruits, platforms); 
+        
+
 
         // The score
         scoreText = this.add.text(16, 16, `Score: ${score}`, {
@@ -286,6 +311,9 @@ var GameScene = new Phaser.Class({
 
     update: function ()
     {
+        console.log(timer);
+        timer++;
+
         //  Restart game
         if (this.newGame.isDown) {
             console.log('New Game');
@@ -320,6 +348,39 @@ var GameScene = new Phaser.Class({
         if (this.cursors.up.isDown && this.player.body.onFloor()) {
             this.player.setVelocityY(-380);
         }  
+
+        if (this.pelt.body.velocity.x > 0) {
+            this.pelt.flipX = true;
+
+        } else if (this.pelt.body.velocityx <= 0) {
+            this.pelt.flipX = false;
+        }
+
+        if (timer > 500) {
+            this.createEnemy(this.platforms);
+            timer = 0;
+        }
+
+    },
+
+    createEnemy: function(platforms) {
+        // Set up for enemy
+        const x = this.player.x < 400
+            ? Phaser.Math.Between(400, 800)
+            : Phaser.Math.Between(0, 400);
+
+        this.pelt = this.physics.add.sprite(x, Phaser.Math.Between(50, game.config.height - 50), 'enemy');
+
+        this.pelt.setScale(0.06);
+        this.pelt.setCollideWorldBounds(true);
+        this.pelt.setBounce(1);
+        this.pelt.setVelocity(Phaser.Math.Between(-200, 200), 20);
+        this.pelt.allowGravity = false;
+        // this.pelt.flipX = true;
+
+        this.physics.add.collider(this.pelt, platforms); 
+
+        this.pelt.anims.play('enemy_fly', true);
 
     },
     
