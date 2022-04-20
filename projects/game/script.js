@@ -6,7 +6,6 @@
  *      Item Collect
  * Music
  *      Game 
- *      Ending
  * Platforms
  * Player
  * Enemies
@@ -122,14 +121,18 @@ var HelpScene = new Phaser.Class({
 
     create: function ()
     {
-        this.left = this.add.image(295, 175, 'left');
+        this.left = this.add.image(295, 145, 'left');
         this.left.setScale(0.2);
 
-        this.right = this.add.image(300, 250, 'right');
+        this.right = this.add.image(300, 220, 'right');
         this.right.setScale(0.2);
 
-        this.up = this.add.image(295, 325, 'up');
+        this.up = this.add.image(297, 295, 'up');
         this.up.setScale(0.2);
+
+        this.down = this.add.image(297, 370, 'up');
+        this.down.setScale(0.2);
+        this.down.angle = 180;
 
         this.add.text(300, 30, 'Controls', {
             fontSize: '38px',
@@ -138,25 +141,37 @@ var HelpScene = new Phaser.Class({
             align: 'center'
         });
 
-        this.add.text(395, 165, 'Move left', {
+        this.add.text(395, 135, 'Move left', {
             fontSize: '18px',
             color: '#000000',
             fontStyle: 'bold',
         });
 
-        this.add.text(395, 240, 'Move right', {
+        this.add.text(395, 210, 'Move right', {
             fontSize: '18px',
             color: '#000000',
             fontStyle: 'bold',
         });
 
-        this.add.text(395, 315, 'Jump', {
+        this.add.text(395, 285, 'Jump', {
             fontSize: '18px',
             color: '#000000',
             fontStyle: 'bold',
         });
 
-        this.add.text(315, 400, 'N - New Game', {
+        this.add.text(395, 360, 'Down', {
+            fontSize: '18px',
+            color: '#000000',
+            fontStyle: 'bold',
+        });
+
+        this.add.text(315, 435, 'N - New Game', {
+            fontSize: '18px',
+            color: '#000000',
+            fontStyle: 'bold',
+        });
+
+        this.add.text(315, 485, 'Q - Quit Game', {
             fontSize: '18px',
             color: '#000000',
             fontStyle: 'bold',
@@ -178,6 +193,91 @@ var HelpScene = new Phaser.Class({
             this.scene.start('introScene');
         }
     }
+
+});
+
+/**
+ * GameOver Scene
+ */
+ var GameOverScene = new Phaser.Class({
+
+    Extends: Phaser.Scene,
+
+    initialize:
+
+    function GameOverScene ()
+    {
+        Phaser.Scene.call(this, { key: 'gameoverScene' });
+    },
+
+    preload: function ()
+    {
+        this.load.image('background', 'assets/images/black_screen.jpg');
+
+        this.load.audio('gameover', 'assets/audio/gameover.wav');
+    },
+
+    create: function ()
+    {
+        this.sound.play('gameover');
+
+        this.background = this.add.image(300, 300, 'background');
+
+        this.add.text(275, 120, `Game Over!`,{
+            fontSize: '40px',
+            color: '#FF0000',
+            fontStyle: 'bold',
+        });
+
+        this.add.text(230, 200, `Final Score: ${score}`, {
+            fontSize: '22px',
+            color: '#ffff00',
+            fontStyle: 'bold',
+        });
+
+        this.add.text(230, 275, `Don't give up, \n\nCuppy is still hungry!`, {
+            fontSize: '22px',
+            color: '#ffffff',
+            fontStyle: 'bold',
+        });
+
+        this.add.text(315, 400, 'N - New Game', {
+            fontSize: '20px',
+            color: '#ffffff',
+            fontStyle: 'bold',
+        });
+
+        this.add.text(315, 450, 'Q - Quit', {
+            fontSize: '20px',
+            color: '#ffffff',
+            fontStyle: 'bold',
+        });
+      
+        maxScore = Math.max(maxScore, score);
+    
+        this.newGame = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.N);
+        this.quit = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.Q);
+    
+        lives = 3;
+        score = 0;
+    },
+
+    update: function ()
+    {
+        if (this.newGame.isDown) {
+            this.newGame.isDown = false;
+            this.scene.stop();
+            this.scene.start('gameScene');
+          }
+      
+          if (this.quit.isDown) {
+            this.quit.isDown = false;
+            this.scene.stop();
+            this.scene.start('introScene');
+          }
+    }
+    
+ 
 
 });
 
@@ -217,10 +317,20 @@ var GameScene = new Phaser.Class({
         this.load.image('pear', 'assets/images/Fruits/pear.png');
         this.load.image('strawberry', 'assets/images/Fruits/strawberry.png');
         this.load.image('watermelon', 'assets/images/Fruits/watermelon.png');
+
+        // load audio
+        this.load.audio('game_music', 'assets/audio/game_music.ogg');
+        this.load.audio('hit', 'assets/audio/hit.wav');
+        this.load.audio('collect', 'assets/audio/collect.wav');
     },
 
     create: function ()
     {
+        // set up
+        var backgroundMusic = this.sound.add('game_music');
+        backgroundMusic.setLoop(true);
+        backgroundMusic.play();
+
         // Set up for platforms
         const map = this.make.tilemap({ key: 'map'});
 
@@ -270,8 +380,6 @@ var GameScene = new Phaser.Class({
         this.pelt.anims.play('enemy_fly', true);
 
         
-       
-        
         let items = ['banana', 'strawberry', 'watermelon', 'orange', 'pear'];
 
         // Creating a group of one specific fruit per game
@@ -284,23 +392,24 @@ var GameScene = new Phaser.Class({
         // Checks to see if the player overlaps with any of the stars, if he does call the collectStar function
         this.physics.add.overlap(this.player, fruits, this.collectFruit, null, this);
 
+        // Checks to see if the player collides with any enemy, if he does call the hitEnemy function
+        this.physics.add.collider(this.player, this.pelt, this.hitEnemy, null, this);
+
         // Collide the player with the platforms
         this.physics.add.collider(this.player, platforms);
         this.physics.add.collider(this.pelt, platforms); 
         this.physics.add.collider(fruits, platforms); 
-        
-
 
         // The score
         scoreText = this.add.text(16, 16, `Score: ${score}`, {
-            fontSize: "18px",
-            fill: "#000000"
+            fontSize: '18px',
+            fill: '#000000'
         });
 
         // The lives
         livesText = this.add.text(16, 48, `Lives: ${lives}`, {
-            fontSize: "18px",
-            fill: "#000000"
+            fontSize: '18px',
+            fill: '#000000'
         });
 
         this.cursors = this.input.keyboard.createCursorKeys();
@@ -317,13 +426,27 @@ var GameScene = new Phaser.Class({
         //  Restart game
         if (this.newGame.isDown) {
             console.log('New Game');
+
+            game.sound.stopAll();
+
+
             this.scene.stop();
             this.scene.start('gameScene');
+            
+            score = 0;
+            lives = 3;
         
         // Quit game
         }  else if (this.quit.isDown) {
             console.log('Quit Game, Back to Intro');
+
+            game.sound.stopAll();
+
+            this.scene.stop();
             this.scene.start('introScene');
+
+            score = 0;
+            lives = 3;
         }
         
         // Player left movement
@@ -347,7 +470,10 @@ var GameScene = new Phaser.Class({
         // Player Jump 
         if (this.cursors.up.isDown && this.player.body.onFloor()) {
             this.player.setVelocityY(-380);
-        }  
+
+        } else if (this.cursors.down.isDown && !this.player.body.onFloor()) {
+            this.player.setVelocityY(300);
+        }
 
         if (this.pelt.body.velocity.x > 0) {
             this.pelt.flipX = true;
@@ -356,14 +482,15 @@ var GameScene = new Phaser.Class({
             this.pelt.flipX = false;
         }
 
-        if (timer > 500) {
-            this.createEnemy(this.platforms);
+        // temp timer for enemy appearing
+        if (timer > 700) {
+            this.createEnemy(this.player, this.platforms);
             timer = 0;
         }
 
     },
 
-    createEnemy: function(platforms) {
+    createEnemy: function(player, platforms) {
         // Set up for enemy
         const x = this.player.x < 400
             ? Phaser.Math.Between(400, 800)
@@ -382,6 +509,27 @@ var GameScene = new Phaser.Class({
 
         this.pelt.anims.play('enemy_fly', true);
 
+        // Checks to see if the player collides with any enemy, if he does call the hitEnemy function
+        this.physics.add.collider(this.player, this.pelt, this.hitEnemy, null, this);
+    },
+
+    hitEnemy: function(player, enemy) {
+        enemy.disableBody(true, true);
+        lives--;
+
+        livesText.setText(`Lives: ${lives}`);
+
+        if (lives === 0) {
+            game.sound.stopAll();
+            this.physics.pause();
+
+            this.scene.stop();
+            this.scene.start('gameoverScene');
+            
+            } else {
+
+            this.sound.play('hit');
+        }
     },
     
     collectFruit: function (player, fruit) {
@@ -393,7 +541,7 @@ var GameScene = new Phaser.Class({
     
         maxScore = Math.max(maxScore, score);
     
-        // this.sound.play("coin");
+        this.sound.play('collect');
     
         if (fruits.countActive(true) === 0) {
             fruits.children.iterate(function (child) {
@@ -403,18 +551,16 @@ var GameScene = new Phaser.Class({
 
     },
 
-    
-
 });
 
 
 // This object contains all the Phaser configurations to load our game
-const config = {
+var config = {
     type: Phaser.AUTO,
     parent: 'game',
     width: 800,
     height: 600,
-    scene: [IntroScene, GameScene, HelpScene],
+    scene: [IntroScene, GameScene, HelpScene, GameOverScene],
     backgroundColor: '#87ceeb',
     scale: {
         mode: Phaser.Scale.RESIZE,
