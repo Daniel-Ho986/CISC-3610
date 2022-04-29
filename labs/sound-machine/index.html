@@ -4,30 +4,51 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="./styles.css">
+    
     <title>Sound Machine</title>
 </head>
 <body>
+    <h1>Sound Machine</h1>
+    <audio id="chimes">
+        <source src="./audio/chimes.wav" type="audio/wav" />
+    </audio>
+    <audio id="drum">
+        <source src="./audio/drum.wav" type="audio/wav" />
+    </audio>
+    <audio id="flute">
+        <source src="./audio/flute.wav" type="audio/wav" />
+    </audio>
+    <audio id="guitar">
+        <source src="./audio/guitar.wav" type="audio/wav" />
+    </audio>
+    <audio id="violin">
+        <source src="./audio/violin.wav" type="audio/wav" />
+    </audio>
+
     <div class="container">
-        <button type="button">
-            <img class="instrument" src="./images/chimes-page.jpg" alt="Chimes" height="400" width="150">
+        <button type="button" onclick="playChimes()">
+            <img class="instrument" src="./images/chimes-page.jpg" alt="Chimes">
         </button>
 
-        <button type="button">
-            <img class="instrument" src="./images/drum-page.jpg" alt="Drum" height="400" width="150">
+        <button type="button" onclick="playDrum()">
+            <img class="instrument" src="./images/drum-page.jpg" alt="Drum">
         </button>
 
-        <button type="button">
-            <img class="instrument" src="./images/flute-page.jpg" alt="Flute" height="400" width="150">
+        <button type="button" onclick="playFlute()">
+            <img class="instrument" src="./images/flute-page.jpg" alt="Flute">
         </button>
 
-        <button type="button">
-            <img class="instrument" src="./images/guitar-page.jpg" alt="Guitar" height="400" width="150">
+        <button type="button" onclick="playGuitar()">
+            <img class="instrument" src="./images/guitar-page.jpg" alt="Guitar">
         </button>
 
-        <button type="button">
-            <img class="instrument" src="./images/violin-page.jpg" alt="Violin" height="400" width="150">
+        <button type="button" onclick="playViolin()">
+            <img class="instrument" src="./images/violin-page.jpg" alt="Violin">
         </button>
     </div>
     
+    <script src="./script.js"></script>
 </body>
 </html>
