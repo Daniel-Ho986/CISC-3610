@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./styles.css">
+    <title>Speech Recognition</title>
+</head>
+<body>
+    <h1>Speech Recognition</h1>
+    <div class="gridContainer">
+        <ol id="instructionGroup">
+            <li id="instruction">Say the name of the object to see the object on the screen.</li>
+            <li id="instruction">Say "Help" to hear the instruction.</li>
+            <li id="instruction">Say "About" to hear my name and copyright with this year.</li>
+        </ol>
+
+        <ul id="objectGroup">
+            <li id="object">Bear</li>
+            <li id="object">Rabbit</li>
+            <li id="object">Pig</li>
+            <li id="object">Raccoon</li>
+            <li id="object">Seal</li>
+        </ul>
+        <button id="speakButton" type="button" onclick="speakMessage();">Speak</button>
+        <br>
+    </div>
+
+    <img id="bear" src="./images/bear.jpg" alt="Bear" hidden>
+    <img id="pig" src="./images/pig.jpg" alt="Pig" hidden>
+    <img id="rabbit" src="./images/rabbit.jpg" alt="Rabbit" hidden>
+    <img id="raccoon" src="./images/raccoon.jpg" alt="Raccoon" hidden>
+    <img id="seal" src="./images/seal.jpg" alt="Seal" hidden>
+
+    <canvas id="myCanvas"></canvas>
+    
+    <script src="./script.js"></script>
+</body>
+</html>
