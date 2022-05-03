@@ -9,24 +9,23 @@ var recognition = new (window.SpeechRecognition || window.webkitSpeechRecognitio
 
 recognition.lang = 'en-US';
 recognition.interimResults = false;
-recognition.maxAlternatives = 5;
+// recognition.maxAlternatives = 5;
 
 var canvas = document.getElementById("myCanvas");
 var ctx = canvas.getContext("2d");
 
-ctx.drawImage(bear, 0, 0, 300, 200);
-// ctx.clearRect(0, 0, canvas.width, canvas.height);
-
 const button = document.getElementById("speakButton");
 
 const speakMessage = () => {
-    if (button.innerHTML == "Speak") {
+    if (button.innerHTML === "Speak") {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
         recognition.start();
         // Change button value to "Stop" once clicked
         button.innerHTML = "Stop";
 
-    } else if (button.innerHTML == "Stop") {
-         recognition.stop();
+    } else if (button.innerHTML === "Stop") {
+        recognition.stop();
+        button.innerHTML = "Speak";
     }  
 }
 
@@ -37,14 +36,34 @@ const speak = (text) => {
 
 recognition.onresult = function(event) {
     var message = event.results[0][0].transcript;
-    if (message == "bear" || message == "pig" || message == "rabbit" || message == "raccoon" || message == "seal") {
+    if (message === "bear") {
+        ctx.drawImage(bear, 0, 0, 300, 200);
 
-    } else if (message == "help") {
-        speak("");
-    } else if (message == "about") {
-        speak("");
+    } else if (message === "pig") {
+        ctx.drawImage(pig, 0, 0, 300, 200);
+
+    } else if (message === "rabbit") {
+        ctx.drawImage(rabbit, 0, 0, 300, 200);
+        
+    } else if (message === "raccoon") {
+        ctx.drawImage(raccoon, 0, 0, 300, 200);
+        
+    } else if (message === "seal") {
+        ctx.drawImage(seal, 0, 0, 300, 200);
+        
+    }
+    
+    else if (message === "help") {
+        speak("Say the name of the object to see the object on the screen.");
+    } else if (message === "about") {
+        speak("Daniel Ho, Copyright 2022.");
     } else {
         // Write unknown on canvas
+        ctx.font = 'bold 28px sans-serif';
+        ctx.fillText('Unknown', 70, 50); 
+
+        ctx.font = 'bold 12px sans-serif';
+        ctx.fillText('You said: ' + event.results[0][0].transcript, 70, 110);
     }
     console.log('You said: ', event.results[0][0].transcript);
 }
